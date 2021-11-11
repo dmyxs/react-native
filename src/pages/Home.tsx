@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
-import { RootStackNavigation, RootStackParams } from '@/navigator/index';
+import { RootStackNavigation } from '@/navigator/index';
 
+// 导航器会传递两个对象：
+// navigation：用于导航跳转，传递参数
+// route：用于接收参数
 interface IProps {
-  //导航器会传递两个参数
-  navigation: RootStackNavigation; //接收路由对象
-  route: RouteProp<RootStackParams, 'Home'>; //路由参数
+  navigation: RootStackNavigation; //路由对象
 }
 
 export const Home = ({ navigation }: IProps) => {

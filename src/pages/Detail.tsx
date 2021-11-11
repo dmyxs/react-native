@@ -1,17 +1,31 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
-import { RootStackParams } from '@/navigator/index';
+import { RootStackNavigation, RootStackParams } from '@/navigator/index';
 
 interface IProps {
-  route: RouteProp<RootStackParams, 'Detail'>; //路由参数，第一个参数是类型，第二个参数是页面
+  navigation: RootStackNavigation;
+  route: RouteProp<RootStackParams, 'Detail'>;
 }
 
-export const Detail = ({ route }: IProps) => {
+export const Detail = ({ route, navigation }: IProps) => {
   return (
     <View>
       <Text>Detail</Text>
-      <Text>Home, {route.params?.id}</Text>
+      <Text>Home, {route.params.id}</Text>
+      <Button
+        title="Go to Details... again"
+        onPress={() =>
+          navigation.push('Detail', {
+            id: Math.floor(Math.random() * 100),
+          })
+        }
+      />
+      <Button
+        title="Go to Home"
+        onPress={() => navigation.navigate('BottomTbas')}
+      />
+      <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
   );
 };
