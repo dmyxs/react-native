@@ -1,14 +1,3 @@
-import React from 'react';
-import { Text, View } from 'react-native';
-import { fn } from '@/utils/index';
+import Navigator from '@/navigator/index';
 
-const App = () => {
-  fn();
-  return (
-    <View>
-      <Text>app</Text>
-    </View>
-  );
-};
-
-export default App;
+export default Navigator;
