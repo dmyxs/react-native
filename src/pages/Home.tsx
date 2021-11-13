@@ -9,7 +9,7 @@ import {
   incrementAsync,
 } from '@/models/home.slice';
 import { useHttpHook } from '@/request/use-http';
-// import { request } from '@/request/request';
+import { request } from '@/request/request';
 // import axios from 'axios';
 
 interface IProps {
@@ -27,15 +27,15 @@ type obj = {
 };
 
 export const Home = memo(({ navigation }: IProps) => {
-  // const [loading, setLoading] = useState(false);
-  // const [data, setData] = useState<obj[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<obj | undefined>(undefined);
   const count = useAppSelector(selectCount);
   const dispatch = useAppDispatch();
 
-  const { result, loading } = useHttpHook<obj>({
-    url: 'https://reactnative.dev/movies.json',
-    watch: [count],
-  });
+  // const { result, loading } = useHttpHook<obj>({
+  //   url: 'https://reactnative.dev/movies.json',
+  //   watch: [count],
+  // });
 
   const onPress = () => {
     navigation.navigate('Detail', {
@@ -43,34 +43,34 @@ export const Home = memo(({ navigation }: IProps) => {
     });
   };
 
-  // const handelRequest = () => {
-  //   setLoading(true);
-  //   request({ url: 'https://reactnative.dev/movies.json' }).then(res => {
-  //     console.log('页面获取数据：', res);
-  //     setData(res.movies);
-  //   });
+  const handelRequest = () => {
+    setLoading(true);
+    request<obj>({ url: 'https://reactnative.dev/movies.json' }).then(res => {
+      console.log('页面获取数据：', res);
+      setResult(res);
+    });
 
-  //   // setLoading(true);
-  //   // axios({ url: 'https://reactnative.dev/movies.json' })
-  //   //   .then(res => {
-  //   //     console.log(res);
-  //   //     setData(res.data);
-  //   //   })
-  //   //   .catch(e => {
-  //   //     console.log(e);
-  //   //   });
+    // setLoading(true);
+    // axios({ url: 'https://reactnative.dev/movies.json' })
+    //   .then(res => {
+    //     console.log(res);
+    //     setData(res.data);
+    //   })
+    //   .catch(e => {
+    //     console.log(e);
+    //   });
 
-  //   // fetch('https://reactnative.dev/movies.json')
-  //   //   .then(response => response.json())
-  //   //   .then(responseJson => {
-  //   //     console.log(responseJson);
-  //   //   })
-  //   //   .catch(error => {
-  //   //     console.error(error);
-  //   //   });
+    // fetch('https://reactnative.dev/movies.json')
+    //   .then(response => response.json())
+    //   .then(responseJson => {
+    //     console.log(responseJson);
+    //   })
+    //   .catch(error => {
+    //     console.error(error);
+    //   });
 
-  //   setLoading(false);
-  // };
+    setLoading(false);
+  };
 
   // useEffect(() => {
   //   console.log(result);
@@ -83,7 +83,7 @@ export const Home = memo(({ navigation }: IProps) => {
       <Button title="---" onPress={() => dispatch(decrement())} />
       <Button title={'+++'} onPress={() => dispatch(increment())} />
       <Button title="异步" onPress={() => dispatch(incrementAsync())} />
-      {/* <Button title="发送请求" onPress={handelRequest} /> */}
+      <Button title="发送请求" onPress={handelRequest} />
       <Button title="跳转到详情" onPress={onPress} />
 
       <View>

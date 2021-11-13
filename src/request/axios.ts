@@ -48,16 +48,13 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   res => {
-    // token失效
-    // if (res.data && res.data.code === 10010) {}
-
     console.log('axios响应拦截器数据：', res);
     // 正常响应数据
     if (res.status === 200) {
       showMessage(msgEnum.SUCCESS);
       cancel = null;
-      return Promise.resolve(res.data);
-      // return res.data.data;
+      // return Promise.resolve(res);
+      return res;
     }
   },
   error => {

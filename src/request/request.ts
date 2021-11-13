@@ -14,14 +14,14 @@ export const request = <T>({
   setLoading,
   setResult,
   ...rest
-}: HttpProps) => {
+}: HttpProps): Promise<T> => {
   console.log('执行axios');
   setLoading && setLoading(true);
   return new Promise((resolve, reject) => {
     axios({ url, method, data, params, ...rest })
       .then(res => {
-        setResult && setResult(res);
-        resolve(res);
+        setResult && setResult(res.data);
+        resolve(res.data);
       })
       .catch(error => {
         reject(error);
