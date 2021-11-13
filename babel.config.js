@@ -14,6 +14,7 @@ module.exports = {
           '@/components': './src/components',
           '@/assets': './src/assets',
           '@/types': './src/types',
+          '@/request': './src/request',
         },
       },
     ],
